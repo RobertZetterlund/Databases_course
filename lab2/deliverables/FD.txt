@@ -1,0 +1,103 @@
+Domain (
+    d.name d.abr p.name p.abr b.name st.idnr st.name st.login c.code c.name c.credits cl.name lc.seats wl.position tkn.grade
+)
+
+--- FUNCTIONAL DEPENDENCIES ---
+
+st.idnr -> st.login
+st.idnr -> st.name
+st.idnr -> p.name
+st.idnr -> b.name
+
+st.login -> st.idnr
+st.login -> st.name
+st.login -> p.name
+st.login -> b.name
+
+d.name -> d.abr
+d.abr -> d.name
+
+p.name -> p.abr
+
+c.code -> c.name
+c.code -> c.credits
+c.code -> d.name
+
+st.idnr, c.code -> tkn.grade
+st.login, c.code -> tkn.grade
+
+c.code, wl.position -> st.idnr
+c.code, st.idnr -> wl.position
+
+cl.name -> cl.name
+
+--- DECOMPOSITIONS ---
+
+1. Attributes: d.abr d.name
+    Keys: 
+        d.name 
+        d.abr
+
+    Functional dependencies:
+        d.abr -> d.name
+        d.name -> d.abr
+
+
+2. Attributes: c.code c.name c.credits d.abr
+    Keys: 
+        c.code
+
+    Functional dependencies:
+        c.code -> c.name
+        c.code -> c.credits
+        c.code -> d.abr
+    
+
+3. Attributes: p.name p.abr
+    Keys: 
+        p.name
+
+    Functional dependencies:
+        p.name -> p.abr
+
+
+4. Attributes: st.login p.name b.name st.idnr st.name
+    Keys: 
+        st.idnr 
+        st.login
+
+    Functional dependencies:
+        st.idnr -> st.login
+        st.idnr -> p.name
+        st.idnr -> b.name
+        st.idnr -> st.name
+        st.login -> p.name
+        st.login -> b.name
+        st.login -> st.idnr
+        st.login -> st.name
+
+
+5. Attributes: c.code wl.position st.login tkn.grade
+    Keys: 
+        c.code st.login
+        c.code wl.position
+
+    Functional dependencies:
+        c.code st.login -> wl.position
+        c.code st.login -> tkn.grade
+        c.code wl.position -> st.login
+        
+
+6. Attributes: c.code cl.name lc.seats wl.position
+    Keys:
+        c.code cl.name lc.seats wl.position
+
+    Functional dependencies:
+        none
+
+7. Attributes: cl.name
+    Keys:
+        cl.name
+
+    Functional dependencies:
+        cl.name -> cl.name

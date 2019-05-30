@@ -1,0 +1,78 @@
+Domain (
+    d.name, d.abr, p.name, p.abr, b.name,
+    st.idnr, st.name, st.login,
+    c.code, c.name, c.credits, cl.name, lc.seats,
+    wl.position, tkn.grade
+)
+
+--- FUNCTIONAL DEPENDENCIES ---
+
+st.idnr -> st.login
+st.idnr -> st.name
+st.idnr -> p.name
+
+d.name -> d.abr
+d.abr -> d.name
+
+p.name -> p.abr
+
+c.code -> c.name
+c.code -> c.credits
+c.code -> d.name
+
+st.idnr -> b.name
+st.idnr, c.code -> tkn.grade
+
+c.code, wl.position -> st.idnr
+c.code, st.idnr -> wl.position
+
+--- DECOMPOSITIONS ---
+
+1.
+    Keys:
+        st.idnr
+
+    (st.idnr p.name b.name st.name st.login)
+        st.idnr -> st.login
+        st.idnr -> st.name
+        st.idnr -> p.name
+
+2.
+    Keys:
+        d.name
+        d.abr
+
+    (d.name, d.abr)
+        d.name -> d.abr
+        d.abr -> d.name
+
+3.
+    Keys:
+        p.name
+
+    (p.name p.abr)
+        p.name -> p.abr
+
+4.
+    Keys:
+        c.code
+
+    (c.code, c.name, c.credits)
+        c.code -> c.name 
+        c.code -> c.credits
+
+
+5.
+    Keys:
+        c.code st.idnr c.code wl.position
+
+    (c.code st.idnr wl.position tkn.grade)
+        st.idnr, c.code -> tkn.grade
+        c.code, wl.position -> st.idnr
+        c.code, st.idnr -> wl.position
+
+6.
+    Keys:
+        c.code cl.name lc.seats wl.position
+        
+    (c.code cl.name lc.seats wl.position)

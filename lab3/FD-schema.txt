@@ -1,0 +1,6 @@
+--- New schema derived from FD ---
+
+CourseDepartment(_course_, department)
+    course -> Courses.code
+    department -> Departments.name
+

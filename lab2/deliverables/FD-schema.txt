@@ -1,0 +1,37 @@
+--- New schema derived from FD ---
+
+Departments(_abr_, _name_)
+
+CoursesInformation(_code_, name, credits, department)
+    code -> c.code
+    name -> c.name
+    credits -> c.credits
+    department -> d.name
+    UNIQUE(department)
+
+Programs(_name_, abr)
+    name -> p.name
+    abr -> p.abr
+
+StudentInformation(_idnr_, login, name, program, branch)
+    idnr -> st.idnr
+    login -> st.login
+    name -> st.name
+    program -> p.name
+    branch -> b.name
+    UNIQUE(login)
+
+Classifications(_name_)
+
+StudentCourseRelation(_student_, _course_, position, grade)
+    student -> st.login
+    course -> c.code
+    position -> wl.position
+    grade -> tkn.grade
+    UNIQUE(course, position)
+
+LimitedCourseWithWaitinglist(_code_, _name_, _seats_, _position_)
+    code -> c.code
+    name -> course.name
+    seats -> lc.seats
+    position -> wl.position
